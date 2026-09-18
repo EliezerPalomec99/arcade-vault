@@ -32,3 +32,13 @@ No test runner is configured yet.
 - App Router under `app/` — `app/layout.tsx` is the root layout (Geist fonts, global CSS via `app/globals.css`); `app/page.tsx` is the `/` route.
 - Path alias `@/*` maps to the repo root (`tsconfig.json`).
 - Styling via Tailwind v4 (`@tailwindcss/postcss`), configured in `postcss.config.mjs`.
+
+## Design reference: `references/templates/`
+
+A standalone HTML/JSX prototype (plain React 18 UMD + Babel-in-browser, no build step — not Next.js code and not wired into the app) sketching the intended product. Treat it as a design/behavior reference when implementing the real App Router pages, not as code to import directly:
+
+- `Arcade Vault.html` — prototype shell that loads the other files as unbuilt `.jsx` scripts.
+- `data.jsx` — mock game/score data.
+- `nav.jsx`, `biblioteca.jsx`, `detalle.jsx`, `reproductor.jsx`, `auth.jsx`, `salon.jsx` — the five views (game library, game detail, player, auth, leaderboard/"salon").
+- `app.jsx` — root component wiring hash-based routing and `localStorage`-backed session (`av_user`) and score persistence (`av_scores`); the real app will need equivalent routes/state built the Next.js way per the App Router guide.
+- `styles.css` — retro arcade visual language (custom fonts: Press Start 2P, Courier Prime, JetBrains Mono) to translate into Tailwind.
