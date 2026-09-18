@@ -42,3 +42,6 @@ A standalone HTML/JSX prototype (plain React 18 UMD + Babel-in-browser, no build
 - `nav.jsx`, `biblioteca.jsx`, `detalle.jsx`, `reproductor.jsx`, `auth.jsx`, `salon.jsx` — the five views (game library, game detail, player, auth, leaderboard/"salon").
 - `app.jsx` — root component wiring hash-based routing and `localStorage`-backed session (`av_user`) and score persistence (`av_scores`); the real app will need equivalent routes/state built the Next.js way per the App Router guide.
 - `styles.css` — retro arcade visual language (custom fonts: Press Start 2P, Courier Prime, JetBrains Mono) to translate into Tailwind.
+
+## Skills
+Usa siempre /frontend-design para diseñar la interfaz de usuario.
