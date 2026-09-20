@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { clearSession, getSession, subscribeSession } from "@/lib/session";
 
-type NavSection = "biblioteca" | "salon" | "auth";
+type NavSection = "home" | "biblioteca" | "salon" | "auth";
 
 const getServerSession = () => null;
 
@@ -16,7 +16,8 @@ export default function Nav() {
   const user = useSyncExternalStore(subscribeSession, getSession, getServerSession);
 
   const isActive = (section: NavSection) => {
-    if (section === "biblioteca") return pathname === "/" || pathname.startsWith("/juegos");
+    if (section === "home") return pathname === "/";
+    if (section === "biblioteca") return pathname === "/games" || pathname.startsWith("/games/");
     if (section === "salon") return pathname === "/salon-de-la-fama";
     return pathname === "/iniciar-sesion";
   };
@@ -38,7 +39,10 @@ export default function Nav() {
           </div>
         </Link>
         <div className="links">
-          <Link href="/" className={isActive("biblioteca") ? "active" : ""} onClick={close}>
+          <Link href="/" className={isActive("home") ? "active" : ""} onClick={close}>
+            Inicio
+          </Link>
+          <Link href="/games" className={isActive("biblioteca") ? "active" : ""} onClick={close}>
             Biblioteca
           </Link>
           <Link href="/salon-de-la-fama" className={isActive("salon") ? "active" : ""} onClick={close}>
@@ -69,7 +73,10 @@ export default function Nav() {
         <div className="pixel neon-cyan" style={{ fontSize: 11, marginBottom: 16 }}>
           MENÚ
         </div>
-        <Link href="/" className={isActive("biblioteca") ? "active" : ""} onClick={close}>
+        <Link href="/" className={isActive("home") ? "active" : ""} onClick={close}>
+          Inicio
+        </Link>
+        <Link href="/games" className={isActive("biblioteca") ? "active" : ""} onClick={close}>
           Biblioteca
         </Link>
         <Link href="/salon-de-la-fama" className={isActive("salon") ? "active" : ""} onClick={close}>

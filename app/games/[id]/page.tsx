@@ -6,7 +6,7 @@ export function generateStaticParams() {
   return GAMES.map((g) => ({ id: g.id }));
 }
 
-export default async function GameDetailPage({ params }: PageProps<"/juegos/[id]">) {
+export default async function GameDetailPage({ params }: PageProps<"/games/[id]">) {
   const { id } = await params;
   const game = GAMES.find((g) => g.id === id);
   if (!game) notFound();
@@ -53,7 +53,7 @@ export default async function GameDetailPage({ params }: PageProps<"/juegos/[id]
             </div>
           </div>
           <div className="detail-actions">
-            <Link href={`/juegos/${game.id}/jugar`} className="btn xl pulse">
+            <Link href={`/games/${game.id}/jugar`} className="btn xl pulse">
               ▶ JUGAR AHORA
             </Link>
             <Link href="/" className="btn ghost lg">
