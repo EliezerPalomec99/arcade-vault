@@ -1,46 +1,59 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import { CATEGORIES, GAMES, type Category } from "@/lib/games";
+import GameCard from "@/components/GameCard";
+
 export default function Home() {
+  const [q, setQ] = useState("");
+  const [cat, setCat] = useState<Category>("TODOS");
+
+  const filtered = useMemo(() => {
+    return GAMES.filter(
+      (g) => (cat === "TODOS" || g.cat === cat) && g.title.toLowerCase().includes(q.toLowerCase())
+    );
+  }, [q, cat]);
+
   return (
-    <main className="flex-1 flex flex-col items-center justify-center gap-8 p-8 text-center">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-bold">Arcade Vault</h1>
-        <p className="text-base opacity-80">
-          Es una plataforma para jugar online y competir por la mayor cantidad
-          de puntos.
-        </p>
+    <div className="fade-in">
+      <section className="av-hero">
+        <h1 className="flicker">ARCADE VAULT</h1>
+        <div className="sub">
+          INSERTA UNA MONEDA PARA JUGAR <span className="blink">_</span>
+        </div>
+      </section>
+
+      <div className="av-filters">
+        <div className="av-search">
+          <span className="ico">⌕</span>
+          <input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="Buscar un juego por nombre…"
+          />
+        </div>
+        <div className="av-chips">
+          {CATEGORIES.map((c) => (
+            <button key={c} className={"chip" + (cat === c ? " active" : "")} onClick={() => setCat(c)}>
+              {c}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <div className="flex flex-col gap-2">
-        <h2 className="text-xl font-semibold">Usa Spec Driven Design</h2>
-        <p className="opacity-80">
-          Basado en{" "}
-          <code className="bg-black/[.05] dark:bg-white/[.06] rounded px-1 py-0.5">
-            /spec
-          </code>{" "}
-          y{" "}
-          <code className="bg-black/[.05] dark:bg-white/[.06] rounded px-1 py-0.5">
-            /spec-impl
-          </code>
-          .
-        </p>
-        <p className="opacity-80">
-          Siguiendo las buenas practicas recomendadas aquí:{" "}
-          <a
-            href="https://github.com/Klerith/fernando-skills"
-            className="underline hover:no-underline"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            github.com/Klerith/fernando-skills
-          </a>
-        </p>
+      <div className="av-grid">
+        {filtered.map((g) => (
+          <GameCard key={g.id} game={g} />
+        ))}
+        {filtered.length === 0 && (
+          <div style={{ gridColumn: "1 / -1", textAlign: "center", padding: 80, color: "var(--ink-faint)" }}>
+            <div className="pixel" style={{ fontSize: 14, color: "var(--magenta)", marginBottom: 12 }}>
+              NO HAY RESULTADOS
+            </div>
+            <div>Intenta otra búsqueda o categoría.</div>
+          </div>
+        )}
       </div>
-
-      <div className="flex flex-col gap-2">
-        <h2 className="text-xl font-semibold">Skills usadas</h2>
-        <pre className="bg-black/[.05] dark:bg-white/[.06] rounded-lg px-4 py-3 text-sm">
-          <code>npx skills@latest add Klerith/fernando-skills</code>
-        </pre>
-      </div>
-    </main>
+    </div>
   );
 }

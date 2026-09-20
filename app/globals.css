@@ -41,9 +41,19 @@
 
 * { box-sizing: border-box; }
 
-html, body {
+html, body, #root {
   height: 100%;
   margin: 0;
+}
+
+.av-footer {
+  border-top: 1px solid var(--line);
+  padding: 20px 32px;
+  text-align: center;
+  color: var(--ink-faint);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
 }
 
 body {
