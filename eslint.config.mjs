@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Standalone design prototype (plain React UMD + Babel-in-browser, not built).
+    "references/**",
   ]),
 ]);
 
